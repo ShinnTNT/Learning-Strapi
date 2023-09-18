@@ -7,7 +7,7 @@ interface Props {
 export default function useFetch({ key }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
 
   useEffect(() => {
     setLoading(true);

@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 
 const App = () => {
+  const navigate = useNavigate();
+
   const { data, loading, error } = useFetch({ key: "reviews" });
 
   if (loading) return "Loading...";
@@ -15,7 +18,7 @@ const App = () => {
         </div>
         {data.map((item: any) => (
           <div
-            className="my-[20px] relative w-full bg-purple-500 h-[120px] rounded-sm p-2"
+            className="my-[20px] relative w-full bg-purple-500 h-[130px] rounded-md shadow-sm p-2"
             key={item.attributes.id}
           >
             <div className="absolute w-[50px] h-[50px] flex justify-center items-center left-[-20px] top-[-20px] bg-white border-purple-500 border-2">
@@ -28,7 +31,12 @@ const App = () => {
             <p className="h-fit text-white mt-3 text-sm">
               {item.attributes.body.substring(0, 200)}...
             </p>
-            <p className="w-[80px] h-fit p-1 mt-2 text-white text-sm underline cursor-pointer">
+            <p
+              onClick={() => {
+                navigate(`/review/${item.id}`);
+              }}
+              className="w-[80px] h-fit p-1 mt-2 text-white text-sm underline cursor-pointer"
+            >
               Read More
             </p>
           </div>
