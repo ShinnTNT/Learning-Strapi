@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
+import useAuthStore from "../store/use-store";
 
 const App = () => {
   const navigate = useNavigate();
+
+  const { resetToken } = useAuthStore();
 
   const { data, loading, error } = useFetch({ key: "reviews" });
 
@@ -10,8 +13,12 @@ const App = () => {
 
   if (error) return "Error";
 
+  const logOutHandler = () => {
+    resetToken();
+  };
+
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full relative h-screen flex justify-center items-center">
       <div className="w-2/4 p-[20px] h-full flex flex-col gap-4 items-center">
         <div className="h-fit text-2xl underline leading-3 text-purple-500 font-extrabold">
           Ninja Reviews
@@ -41,6 +48,10 @@ const App = () => {
             </p>
           </div>
         ))}
+      </div>
+
+      <div className="absolute right-0 top-0">
+        <button onClick={logOutHandler}>Logout</button>
       </div>
     </div>
   );
